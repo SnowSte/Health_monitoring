@@ -1,0 +1,65 @@
+{% extends 'health_monitoring/base.html' %}
+
+{% block title %}Назначить лечение{% endblock %}
+
+{% block content %}
+<div class="rounded-form">
+  <h2>Назначить лечение</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.doctor_visit.id_for_label }}">{{ form.doctor_visit.label }}</label>
+      {{ form.doctor_visit }}
+    </div>
+    <div class="form-group">
+      <label for="{{form.doctor_visit.visit_date}}">Дата обращения</label>
+      <input type="text" id="visit_date" name="visit_date" value="{{form.doctor_visit.visit_date}}" class="form-control" readonly>
+    </div>
+    <div class="form-group">
+      <label>{{ form.medications.label }}</label>
+      <div class="medications-list">
+        {% for medication in form.medications %}
+          <div class="medication-item">
+            {{ medication.tag }} {{ medication.choice_label }}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="{{ form.diagnosis.id_for_label }}">{{ form.diagnosis.label }}</label>
+      {{ form.diagnosis }}
+    </div>
+    <button type="submit" class="btn btn-primary">Назначить</button>
+  </form>
+</div>
+
+{% if treatments %}
+  <h2>Назначенные лечения</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Доктор</th>
+        <th>Пациент</th>
+        <th>Медикаменты</th>
+        <th>Диагноз</th>
+        <th>Дата назначения</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for treatment in treatments %}
+        <tr>
+          <td>{{ treatment.doctor_visit.patient.username }}</td>
+          <td>{{ treatment.doctor_visit.patient.username }}</td>
+          <td>
+            {% for medication in treatment.medications.all %}
+              {{ medication.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </td>
+          <td>{{ treatment.diagnosis }}</td>
+          <td>{{ treatment.date_prescribed }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+{% endblock %}

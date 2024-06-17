@@ -1,0 +1,41 @@
+{% extends 'health_monitoring/base.html' %}
+
+{% block title %}
+    Мониторинг
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Monitoring Form</h1>
+    <div class="rounded-form p-4">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_patient">Пациент</label>
+                {{ form.patient }}
+            </div>
+            <div class="form-group">
+                <label for="id_doctor">Доктор</label>
+                {{ form.doctor }}
+            </div>
+            <div class="form-group">
+                <label for="id_symptoms">Симптомы</label>
+                {{ form.symptoms }}
+            </div>
+            <div class="form-group">
+                <label for="id_temperature">Температура</label>
+                {{ form.temperature }}
+            </div>
+            <div class="form-group">
+                <label for="id_weight">Вес</label>
+                {{ form.weight }}
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="id_has_appetite" name="has_appetite">
+                <label class="form-check-label" for="id_has_appetite">Есть аппетит</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Заполнить</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

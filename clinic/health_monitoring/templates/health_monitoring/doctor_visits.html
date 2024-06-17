@@ -1,0 +1,35 @@
+<!-- doctor_visits.html -->
+
+{% extends 'health_monitoring/base.html' %} 
+{% block title %} Обращения к врачу {% endblock %} 
+{% block content %}
+<div class="container">
+  <h2>Обращения к врачу</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Пациент</th>
+        <th>Жалобы</th>
+        <th>Температура</th>
+        <th>Давление</th>
+        <th>Пульс</th>
+        <th>Вес</th>
+        <th>Дата</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for visit in doctor_visits %}
+      <tr>
+        <td>{{ visit.patient }}</td>
+        <td>{{ visit.complaints }}</td>
+        <td>{{ visit.temperature }}</td>
+        <td>{{ visit.blood_pressure }}</td>
+        <td>{{ visit.pulse }}</td>
+        <td>{{ visit.weight }}</td>
+        <td>{{ visit.visit_date }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

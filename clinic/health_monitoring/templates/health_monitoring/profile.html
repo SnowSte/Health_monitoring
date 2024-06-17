@@ -1,0 +1,38 @@
+{% extends 'health_monitoring/base.html' %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <h1>Профиль пользователя</h1>
+    </div>
+    <div class="profile-body">
+        <div class="profile-info">
+            <h2>Информация</h2>
+            <p><strong>Полное имя:</strong> {{ user.full_name }}</p>
+            <p><strong>Паспортные данные:</strong> {{ user.passport_data }}</p>
+            <p><strong>Телефон:</strong> {{ user.phone }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Адрес:</strong> {{ user.address }}</p>
+            <p><strong>Дополнительная информация:</strong> {{ user.other_info }}</p>
+        </div>
+        {% if user.role.key == 'patient' %}
+            <div class="profile-diagnosis">
+                <h2>Диагноз</h2>
+                {% if current_diagnosis %}
+                    <p><strong>Ваш диагноз:</strong> {{ current_diagnosis }}</p>
+                {% else %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ diagnosis_form.as_p }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Сохранить диагноз</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

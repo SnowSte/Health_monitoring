@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f0f2f5;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .rounded-form {
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .medications-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .medication-item {
+      flex: 1 0 100%;
+      padding: 5px;
+    }
+
+    .medication-item input {
+      margin-right: 5px;
+    }
+
+    .profile-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .profile-body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-info, .profile-diagnosis {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
+    }
+
+    .profile-info p, .profile-diagnosis p {
+      margin: 10px 0;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .main-content {
+      padding-top: 20px; /* Отступ сверху для контейнера с основным контентом */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    {% if user.is_authenticated %}
+    <p>Текущий пользователь: {{ user.username }}</p>
+    <p>Роль пользователя: {{ user.role.key }}</p>
+    {% endif %}
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="navbar-brand" href="{% url 'profile' %}">Профиль</a>
+          {% if user.is_authenticated %}
+            {% if user.role.key != 'patient' %}
+              <a class="navbar-brand" href="{% url 'all_patients' %}">Все пациенты</a>
+              <a class="navbar-brand" href="{% url 'medications_page' %}">Все медикаменты</a>
+              <a class="navbar-brand" href="{% url 'doctor_visits' %}">Обращения к врачу</a>
+              <a class="navbar-brand" href="{% url 'create_prescribed_treatment' %}">Назначить лечение</a>
+              <a class="navbar-brand" href="{% url 'doctor_prescribed_treatments' %}">Просмотр назначений</a>
+            {% else %}
+              <a class="navbar-brand" href="{% url 'patient_prescribed_treatments' %}">Главная</a>
+              <a class="navbar-brand" href="{% url 'create_doctor_visit' %}">Создать обращение</a>
+            {% endif %}
+            {% comment %} <a class="navbar-brand" href="{% url 'about' %}">Уведомления</a> {% endcomment %}
+            {% if user.role.key == 'patient' %}
+              <a class="navbar-brand" href="{% url 'all_doctors' %}">Все доктора</a>
+            {% endif %}
+            <a class="navbar-brand" href="{% url 'logout' %}">Выход</a>
+          {% else %}
+            <a class="navbar-brand" href="{% url 'login' %}">Вход</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="container main-content">
+    {% block content %}{% endblock %}
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

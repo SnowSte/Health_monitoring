@@ -1,0 +1,17 @@
+{% extends 'health_monitoring/base.html' %}
+
+{% block title %}
+Главная
+{%endblock%}
+
+{% block content %}
+главная страница
+
+{% if user.is_authenticated%}
+    <a href="{% url 'logout' %}">Выход</a>
+{% else%}
+    <a href="{% url 'register' %}">Вход</a>
+{% endif%}
+
+
+{%endblock%}

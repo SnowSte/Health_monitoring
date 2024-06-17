@@ -1,0 +1,23 @@
+{% extends 'health_monitoring/base.html' %}
+
+{% block title %}
+    Список медикаментов
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">Список медикаментов</h1>
+    <ul class="list-group">
+        {% for medication in medications %}
+            <li class="list-group-item">
+                <strong>{{ medication.name }}</strong>
+                <ul class="list-group mt-2">
+                    {% for symptom in medication.symptoms.all %}
+                        <li class="list-group-item">{{ symptom.name }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'health_monitoring/base.html' %}
+
+{% block title %}Детали лечения{% endblock %}
+
+{% block content %}
+<div class="rounded-form">
+  <h2>Детали лечения</h2>
+  <p><strong>Пациент:</strong> {{ prescribed_treatment.patient.full_name }}</p>
+  <p><strong>Врач:</strong> {{ prescribed_treatment.doctor.user.full_name }}</p>
+  <p><strong>Дата назначения:</strong> {{ prescribed_treatment.date_prescribed }}</p>
+  <p><strong>Медикаменты:</strong>
+    <ul>
+      {% for medication in prescribed_treatment.medications.all %}
+      <li>{{ medication.name }}</li>
+      {% endfor %}
+    </ul>
+  </p>
+  <p><strong>Вывод по жалобе:</strong> {{ prescribed_treatment.diagnosis }}</p>
+</div>
+{% endblock %}

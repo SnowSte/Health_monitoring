@@ -1,0 +1,14 @@
+{% extends 'health_monitoring/base.html' %}
+{% block title %}
+Выход из аккаунта
+{%endblock%}
+
+{% block content %}
+<h2>Welcome, {{ user.username }}!</h2>
+<p>Вы точно хотите выйти?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Да, выйти</button>
+        <a href="{% url 'profile' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+{%endblock%}

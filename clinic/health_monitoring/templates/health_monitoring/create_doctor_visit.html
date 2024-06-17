@@ -1,0 +1,26 @@
+{% extends 'health_monitoring/base.html' %}
+
+{% block title %}Создание обращения к врачу{% endblock %}
+
+{% block content %}
+<div class="rounded-form">
+  <h2>Создание обращения к врачу</h2>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-success" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Отправить</button>
+  </form>
+
+  <div class="form-group">
+    <label>Дата обращения:</label>
+    <p>{{ visit_date }}</p>
+  </div>
+</div>
+{% endblock %}

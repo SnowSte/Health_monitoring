@@ -1,0 +1,37 @@
+{% extends 'health_monitoring/base.html' %}
+
+{% block title %}Мои назначения{% endblock %}
+
+{% block content %}
+<div class="rounded-form">
+  <h2>Мои назначения</h2>
+  {% if treatments %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Доктор</th>
+          <th>Медикаменты</th>
+          <th>Дата</th>
+          <th>Вывод по жалобе</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for treatment in treatments %}
+          <tr>
+            <td>{{ treatment.doctor.user.full_name }}</td>
+            <td>
+              {% for medication in treatment.medications.all %}
+                {{ medication.name }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </td>
+            <td>{{ treatment.date_prescribed }}</td>
+            <td>{{ treatment.diagnosis }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>Назначений пока нет.</p>
+  {% endif %}
+</div>
+{% endblock %}

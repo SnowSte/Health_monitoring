@@ -1,0 +1,16 @@
+{% extends 'health_monitoring/base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Создание кастомной формы</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="button" id="add-symptom" class="btn btn-primary">Добавить вопрос</button>
+      <button type="submit" class="btn btn-success">Создать форму</button>
+    </form>
+  </div>
+
+  <!-- Регистрация JavaScript-файла -->
+  {% comment %} <script src="{% static 'health_monitoring/custom_form.js' %}"></script> {% endcomment %}
+{% endblock %}

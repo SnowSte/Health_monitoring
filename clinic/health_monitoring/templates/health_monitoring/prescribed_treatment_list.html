@@ -1,0 +1,18 @@
+{% extends 'health_monitoring/base.html' %}
+
+{% block title %}Назначенные лечения{% endblock %}
+
+{% block content %}
+<div class="rounded-form">
+  <h2>Назначенные лечения</h2>
+  <ul>
+    {% for treatment in treatments %}
+    <li>
+      <a href="{% url 'prescribed_treatment_detail' treatment.pk %}">
+        Лечение от {{ treatment.date_prescribed }} для {{ treatment.patient.full_name }}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

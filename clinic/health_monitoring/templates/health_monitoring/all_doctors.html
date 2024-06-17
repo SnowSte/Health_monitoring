@@ -1,0 +1,20 @@
+{% extends 'health_monitoring/base.html' %}
+
+{% block title %}
+Ваши доктора
+{%endblock%}
+
+{% block content %}
+        <div class="container">
+            <h1 class="text-center mt-4 mb-4">Ваши доктора</h1>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <ul class="list-group">
+                    {% for doctor in patient_doctors %}
+                        <li class="list-group-item">{{ doctor.user.full_name }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+{%endblock%}

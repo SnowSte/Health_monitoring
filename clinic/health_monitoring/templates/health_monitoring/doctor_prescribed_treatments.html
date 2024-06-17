@@ -1,0 +1,24 @@
+{% extends 'health_monitoring/base.html' %}
+
+{% block title %}Назначенные лечения{% endblock %}
+
+{% block content %}
+<h1>Назначенные лечения</h1>
+    <ul>
+        {% for treatment in treatments %}
+        <li>
+            {% comment %} <strong>Лекарство:</strong> {{ treatment.medication.name }}<br> {% endcomment %}
+            <strong>Пациент:</strong> {{ treatment.patient.username }}<br>
+            <strong>Дата назначения:</strong> {{ treatment.date_prescribed }}<br>
+            <strong>Вывод по жалобе:</strong> {{ treatment.diagnosis }}
+            <!-- Добавьте кнопку для удаления лечения -->
+            <form action="{% url 'remove_prescribed_treatment' treatment.pk %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary">Удалить</button>
+            </form>
+        </li>
+        {% empty %}
+        <li>Нет назначенных лечений</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
