@@ -91,15 +91,6 @@ def all_doctors(request):
     else:
         return render(request, 'error.html', {'message': 'Вы не пациент!'})
     
-# def remove_patient(request, doctor_id):
-#     if request.method == 'POST':
-#         doctor = get_object_or_404(Doctor, pk=doctor_id)
-#         patient_id = request.POST.get('patient_id')
-#         if patient_id:
-#             doctor.patients.remove(patient_id)
-#         return redirect('health_monitoring/home.html')  
-#     else:
-#         return redirect('health_monitoring/all_patients.html')  
     
 def medications_page(request):
     medications = Medication.objects.all()
